@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "x$LRU_DIR" = "x" ]; then
+	LRU_DIR="$HOME/projs"
+fi
+
+LRU_LIST=`find "$LRU_DIR" -maxdepth 1 -type d -name "*-P1-*" -and -not -name "*-P2-*" -exec mtime {} \; | grep -v "$LRU_DIR\$" | sort -n -r`
+FOLDERS=`echo "$LRU_LIST" | sed -re 's/^ [0-9]+ (.*)/\1/'`
+echo "$FOLDERS" | awk '
+BEGIN {i=0}
+{printf "%d. %s\n", i, $0; i++}
+'
