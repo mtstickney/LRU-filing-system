@@ -1,0 +1,44 @@
+* About the project
+This project is aimed at producing a few shell scripts that make a digital
+Least-Recently-Used filing system more manageable.
+
+* Installing
+Edit the Makefile to reflect your own preferences (e.g. installation
+directory), then use:
+
+: make
+: make install
+
+The =mtime= program performs the same function as [[http://swtch.com/plan9port/][Plan9Port]]'s version, and is
+included for the sake of compatability. If you already have a version of =mtime=
+installed, you might want to get rid of this one to avoid confusion.
+
+* Uninstallation
+As simple as
+: make uninstall
+
+* Usage
+The file-folders managed by these scripts reside in =$LRU_DIR=, which is
+=$HOME/projs/= by default.
+
+To view a list of file-folders in the system, use:
+: files [regexp]
+
+To select a file-folder to work on, use:
+: pull <n>
+where =n= is the number of the file as listed by =files=. The folder will be
+linked (hard-linked where possible, symlinked where necessary) into the current directory.
+
+To remove a folder when you're done with it, simply
+: rm <folder>
+Note that you shouldn't use =rm -r=, since you're only removing the link
+(hopefully).
+
+When a folder has gotten stale, you can archive it with
+: archive <n>
+This prevents the folder from being displayed by =files=, but keeps a copy in
+=$LRU_DIR=.
+
+To add a new folder to the system, use 
+: folder <subject>
+This will add a new file-folder to $LRU_DIR labelled with the current date and =<subject>=.
