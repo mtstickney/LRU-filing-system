@@ -3,6 +3,9 @@ This project is aimed at producing a few shell scripts that make a digital
 Least-Recently-Used filing system more manageable.
 
 * Installing
+This project depends on rsync(1) for now, so make sure it is installed before
+using these scripts.
+
 Edit the Makefile to reflect your own preferences (e.g. installation
 directory), then use:
 
@@ -31,8 +34,7 @@ linked (hard-linked where possible, symlinked where necessary) into the current 
 
 To remove a folder when you're done with it, simply
 : rm <folder>
-Note that you shouldn't use =rm -r=, since you're only removing the link
-(hopefully).
+Files will either be hardlinked or copied, so the original will remain intact.
 
 When a folder has gotten stale, you can archive it with
 : archive <n>
