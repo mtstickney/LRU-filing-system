@@ -10,4 +10,10 @@ TAG="$1\. "
 
 FOLDER=`echo "$FOLDERS" | grep "^$TAG" | sed "s/^$TAG//"`
 FNAME=`basename "$FOLDER"`
+
+# Update the LRU stamp
+touch "$FOLDER"
+
+# Use rsync to recursively hardlink the directory (or copy if that's not
+# possible)
 rsync -a --link-dest="$FOLDER" "$FOLDER" .
