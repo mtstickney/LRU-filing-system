@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Usage: pull <n>" 1>&2
+	exit 1
+fi
+
+FOLDERS=`./files`
+TAG="$1\. "
+
+FOLDER=`echo "$FOLDERS" | grep "^$TAG" | sed "s/^$TAG//"`
+FNAME=`basename "$FOLDER"`
+rsync -a --link-dest="$FOLDER" "$FOLDER" .
