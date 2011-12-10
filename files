@@ -10,9 +10,9 @@ else
 	TAG="$@"
 fi
 
-LRU_LIST=`find "$LRU_DIR" -maxdepth 1 -type d -name "*-P1-*" -and -not -name "*-P2-*" -exec mtime {} \; | grep -v "$LRU_DIR\$" | sort -n -r`
-FOLDERS=`echo "$LRU_LIST" | sed -re 's/^ [0-9]+ (.*)/\1/'`
-echo "$FOLDERS" | awk '
+LRU_LIST=`ls -F "$LRU_DIR" | grep "^[0-9]\{8\}-P1-.*/$" | xargs -I FNAME mtime "$LRU_DIR/FNAME"`
+FOLDERS=`echo "$LRU_LIST" | cut -d " " -f 3 | xargs -n 1 basename`
+echo "$FOLDERS" | grep "$TAG" | awk '
 BEGIN {i=0}
 {printf "%d. %s\n", i, $0; i++}
-' | grep "$TAG"
+'
