@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Usage: put <folder>" 1>&2
+	exit 1
+fi
+
+FOLDER="$1"
+FNAME=`basename "$FOLDER"`
+
+fusermount -u "$FOLDER"
+if [ $? -ne 0 ]; then
+	echo "Error: unmount of bindfs mount failed" 1>&2
+	exit 1
+fi
+
+# Don't remove the folder if it's got something in it
+COUNT=`ls "$FOLDER" | wc -l`
+if [ $COUNT -eq 0 ]; then
+	rm -r "$FOLDER"
+fi
