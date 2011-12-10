@@ -12,7 +12,7 @@ fi
 
 LRU_LIST=`ls -F "$LRU_DIR" | grep "^[0-9]\{8\}-P1-.*/$" | xargs -I FNAME mtime "$LRU_DIR/FNAME"`
 FOLDERS=`echo "$LRU_LIST" | cut -d " " -f 3 | xargs -n 1 basename`
-echo "$FOLDERS" | grep "$TAG" | awk '
+echo "$FOLDERS" | awk '
 BEGIN {i=0}
 {printf "%d. %s\n", i, $0; i++}
-'
+' | grep "$TAG"
