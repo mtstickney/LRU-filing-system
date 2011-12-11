@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 			perror("");
 			errno = 0;
 		} else {
-			printf("%11u %s\n", s.st_mtime, argv[i]);
+			printf("%11lu %s\n", s.st_mtime, argv[i]);
 		}
 	}
 
