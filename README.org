@@ -44,5 +44,5 @@ Least-Recently-Used filing system more manageable.
 
   To add a new folder to the system, use 
 : folder <subject>
-  This will add a new file-folder to $LRU_DIR labelled with the current date and
+  This will add a new file-folder to =$LRU_DIR= labelled with the current date and
   =<subject>=.
